@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 import { coffeeService } from '../../services/coffeeService';
 
-const UserForm = ({ handleSubmit, errors, values, handleChange, setFieldValue }) => (
+const CoffeeForm = ({ handleSubmit, errors, values, handleChange, setFieldValue }) => (
     <form onSubmit={handleSubmit}>
         <input type="text"     placeholder="Name"        name="name"        onChange={handleChange} value={values.name}/>
         <br/>{ !!errors.name && <span>{errors.name}</span> }
@@ -44,4 +44,4 @@ export default withFormik({
             coffeeService.create(values);
         }
     }
-})(UserForm);
+})(CoffeeForm);
