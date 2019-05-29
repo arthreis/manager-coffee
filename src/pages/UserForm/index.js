@@ -1,6 +1,8 @@
 import React from 'react';
 import { withFormik } from 'formik';
 
+import { coffeeService } from '../../services/coffeeService';
+
 const UserForm = ({ handleSubmit, values, handleChange, setFieldValue }) => (
     <form onSubmit={handleSubmit}>
         <input type="text"     placeholder="Name"        name="name"        onChange={handleChange} value={values.name}/>
@@ -17,7 +19,14 @@ export default withFormik({
         description: '',
         price: ''
     }),
-    handleSubmit: values => {
-        console.log(values);
+    handleSubmit: (values, { props }) => {
+        const { id } = props.match.params;
+        if (id) {
+            console.log("Editing...");
+            coffeeService.edit(id, values);
+        }else{
+            console.log("Creating...");
+            coffeeService.create(values);
+        }
     }
 })(UserForm);
