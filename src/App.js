@@ -5,9 +5,9 @@ import Routes from './routes';
 function App() {
 	return (
 		<div className="App">
-			<a href="list">List</a>
-			<br></br>
-			<a href="create">Create</a>
+			<a href="/coffee/list">List</a>
+			<br/>
+			<a href="/coffee/create">Create</a>
 			<Routes/>
 		</div>
 	);
