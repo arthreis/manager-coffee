@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { coffeeService } from '../../services/coffeeService';
-import styles from './styles';
+import Card from './../../components/Card';
 
 export default class CoffeeList extends Component {
 
@@ -11,10 +11,9 @@ export default class CoffeeList extends Component {
     componentDidMount(){
         this.loadCoffees();
     }
-    
+
     loadCoffees = async () => {
         const response = await coffeeService.list();
-        console.log(response.data);
         this.setState({coffees: response.data});
     }
 
@@ -22,15 +21,7 @@ export default class CoffeeList extends Component {
         return (
             <div>
                 {this.state.coffees.map(coffee => (
-                    <div key={coffee._id} style={styles.card}>
-                        <div><b> {coffee.name} </b></div>
-                        
-                        <span> {coffee._id} </span>
-                        
-                        <div style={styles.footer}>
-                            <button>EDIT</button><button>DELETE</button>
-                        </div>
-                    </div>
+                    <Card coffee={coffee} key={coffee._id}></Card>
                 ))}
             </div>
         )

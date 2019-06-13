@@ -4,16 +4,19 @@ import * as Yup from 'yup';
 
 import { coffeeService } from '../../services/coffeeService';
 
-const CoffeeForm = ({ handleSubmit, errors, values, handleChange, setFieldValue }) => (
+const CoffeeForm = ({ handleSubmit, errors, values, handleChange, setFieldValue, foo }) => (
     <form onSubmit={handleSubmit}>
+
         <input type="text"     placeholder="Name"        name="name"        onChange={handleChange} value={values.name}/>
-        <br/>{ !!errors.name && <span>{errors.name}</span> }
+        { !!errors.name && <span>{errors.name}</span> }<br/>
+
         <input type="textarea" placeholder="Description" name="description" onChange={handleChange} value={values.description}/>
-        <br/>{ !!errors.description && <span>{errors.description}</span> }
+        { !!errors.description && <span>{errors.description}</span> }<br/>
+
         <input type="number"   placeholder="Price"       name="price"       onChange={ event => setFieldValue('price', event.target.value)} value={values.price}/>
-        <br/>{ !!errors.price && <span>{errors.price}</span> }
+        { !!errors.price && <span>{errors.price}</span> }<br/>
         <br/>
-        <button type="submit">Send</button>
+        <button type="submit">Save</button>
     </form>
 );
 
