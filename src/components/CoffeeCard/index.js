@@ -13,7 +13,7 @@ const CoffeeCard = ( { coffee } ) => (
         </div>
 
         <div style={styles.actions}>
-            <Link to={ { pathname: `/coffee/create/${coffee._id}` } } params={coffee._id}>
+            <Link to={ { pathname: `/coffee/edit/${coffee._id}` } } params={coffee._id}>
                 <button>EDIT</button>
             </Link>
             <Link to="/coffee/delete" params={coffee._id}>

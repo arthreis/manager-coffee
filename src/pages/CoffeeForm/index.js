@@ -1,28 +1,58 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { coffeeService } from '../../services/coffeeService';
 
-const CoffeeForm = ({ handleSubmit, errors, values, handleChange, setFieldValue }) => (
-    <form onSubmit={handleSubmit}>
+class CoffeeForm extends Component {
 
-        <input type="text"     placeholder="Name"        name="name"        onChange={handleChange} value={values.name}/>
-        { !!errors.name && <span>{errors.name}</span> }<br/>
+    constructor(props) {
+        super(props);
 
-        <input type="textarea" placeholder="Description" name="description" onChange={handleChange} value={values.description}/>
-        { !!errors.description && <span>{errors.description}</span> }<br/>
+        this.state = {
+            id: props.match.params.id,
+            product: {
+                name: "",
+                description: "",
+                price: 0,
+            }
+        }
+    }
 
-        <input type="number"   placeholder="Price"       name="price"       onChange={ event => setFieldValue('price', event.target.value)} value={values.price}/>
-        { !!errors.price && <span>{errors.price}</span> }<br/>
-        <br/>
-        <button type="submit">Save</button>
-    </form>
-);
+    componentDidMount() {
+        if(this.state.id) {
+            this.findCoffee(this.state.id);
+        }
+    }
+
+    findCoffee = async () => {
+        const response = await coffeeService.findById(this.state.id);
+        console.log(response);
+        this.setState({ product: response.data });
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.props.handleSubmit}>
+
+                <input type="text"     placeholder="Name"        name="name"        onChange={this.props.handleChange} value={this.props.name}/>
+                { !!this.props.errors.name && <span>{this.props.errors.name}</span> }<br/>
+
+                <input type="textarea" placeholder="Description" name="description" onChange={this.props.handleChange} value={this.props.description}/>
+                { !!this.props.errors.description && <span>{this.props.errors.description}</span> }<br/>
+
+                <input type="number"   placeholder="Price"       name="price"       onChange={ event => this.props.setFieldValue('price', event.target.value)} value={this.props.price}/>
+                { !!this.props.errors.price && <span>{this.props.errors.price}</span> }<br/>
+                <br/>
+                <button type="submit">Save</button>
+            </form>
+        );
+    }
+}
 
 export default withFormik({
-    mapPropsToValues: () => ({
-        name: '',
+    mapPropsToValues: props => ({
+        name: props.product,
         description: '',
         price: ''
     }),
@@ -40,11 +70,11 @@ export default withFormik({
     handleSubmit: (values, { props }) => {
         const { id } = props.match.params;
         if (id) {
-            console.log("Editing...");
-            coffeeService.edit(id, values);
-        }else{
-            console.log("Creating...");
-            coffeeService.create(values);
+            console.log("Editing..."+values);
+            //coffeeService.edit(id, values);
+        } else {
+            console.log("Creating..."+values);
+            //coffeeService.create(values);
         }
     }
 })(CoffeeForm);

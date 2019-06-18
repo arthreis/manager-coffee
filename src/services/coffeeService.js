@@ -1,9 +1,7 @@
 import api from './api';
 
 export var version = () => { 
-    const response = api.get('/');
-    console.log(response);    
-    return response;
+    return api.get('/');
 };
 
 export const coffeeService = {
@@ -14,9 +12,7 @@ export const coffeeService = {
             "imagePath" : newCoffee.name.toLowerCase(),
             "price" : newCoffee.price
         };
-        const response = api.post(`/product/coffee`, coffee);
-        console.log(response);
-        return response;
+        return api.post(`/product/coffee`, coffee);
     },
     edit(id, editedCoffee) {
         let coffee = {
@@ -25,19 +21,17 @@ export const coffeeService = {
             "imagePath" : editedCoffee.name.toLowerCase(),
             "price" : editedCoffee.price
         };
-        const response = api.put(`/product/coffee?coffeeId=${id}`, coffee);
-        console.log(response);
-        return response;
+        return api.put(`/product/coffee?coffeeId=${id}`, coffee);
     },
-    delete(coffeeId){
-        const response = api.delete(`/product/coffee?coffeeId=${coffeeId}`);
-        console.log(response);
-        return response;
+    delete(coffeeId) {
+        return api.delete(`/product/coffee?coffeeId=${coffeeId}`);
     },
-    list(){
-        const response = api.get('/product/coffees');
-        console.log(response);
-        return response;
+    list() {
+        return api.get('/product/coffees');
     },
     version
+    ,
+    findById(id) {
+        return api.get(`/product/coffee/${id}`);      
+    }
 }
