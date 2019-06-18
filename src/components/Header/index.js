@@ -12,7 +12,6 @@ class Header extends Component {
                 <Link to="/coffee/create">
                     <span>Create</span>
                 </Link>
-                
             </div>
         );
     }

@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 import { coffeeService } from '../../services/coffeeService';
 
-const CoffeeForm = ({ handleSubmit, errors, values, handleChange, setFieldValue, foo }) => (
+const CoffeeForm = ({ handleSubmit, errors, values, handleChange, setFieldValue }) => (
     <form onSubmit={handleSubmit}>
 
         <input type="text"     placeholder="Name"        name="name"        onChange={handleChange} value={values.name}/>

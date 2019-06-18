@@ -11,13 +11,11 @@ const styles = ({
         height: '20%',
         fontSize: '18px',
         fontWeight: 'bold',
-        backgroundColor: '#3e3e3e',
         marginBottom: '2%',
     },
     content: {
         height: '60%',
         marginBottom: '2%',
-        backgroundColor: '#5e5e5e',
 
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -28,7 +26,6 @@ const styles = ({
         height: '20%',
         justifyContent: 'space-between',
         display: 'flex',
-        backgroundColor: '#343434',
     }
 });
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { coffeeService } from '../../services/coffeeService';
-import Card from './../../components/Card';
+import CoffeeCard from './../../components/CoffeeCard';
 
 export default class CoffeeList extends Component {
 
@@ -21,9 +21,9 @@ export default class CoffeeList extends Component {
         return (
             <div>
                 {this.state.coffees.map(coffee => (
-                    <Card coffee={coffee} key={coffee._id}></Card>
+                    <CoffeeCard coffee={coffee} key={coffee._id} />
                 ))}
             </div>
-        )
+        );
     }
 }
