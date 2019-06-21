@@ -28,21 +28,28 @@ class CoffeeForm extends Component {
     findCoffee = async () => {
         const response = await coffeeService.findById(this.state.id);
         console.log(response);
+        this.props.setValues({
+            ...this.props.values,
+            product: response.data,
+        });
         this.setState({ product: response.data });
     }
 
     render() {
+
+        const {handleSubmit, handleChange, setFieldValue, values, errors} = this.props;
+
         return (
-            <form onSubmit={this.props.handleSubmit}>
+            <form onSubmit={handleSubmit} >
 
-                <input type="text"     placeholder="Name"        name="name"        onChange={this.props.handleChange} value={this.props.name}/>
-                { !!this.props.errors.name && <span>{this.props.errors.name}</span> }<br/>
+                <input type="text"     placeholder="Name"        name="product.name"        onChange={handleChange} value={values.product.name}/>
+                { !!errors.product && errors.product.name && <span>{errors.product.name}</span> }<br/>
 
-                <input type="textarea" placeholder="Description" name="description" onChange={this.props.handleChange} value={this.props.description}/>
-                { !!this.props.errors.description && <span>{this.props.errors.description}</span> }<br/>
+                <input type="textarea" placeholder="Description" name="product.description" onChange={handleChange} value={values.product.description}/>
+                { !!errors.product && errors.product.description && <span>{errors.product.description}</span> }<br/>
 
-                <input type="number"   placeholder="Price"       name="price"       onChange={ event => this.props.setFieldValue('price', event.target.value)} value={this.props.price}/>
-                { !!this.props.errors.price && <span>{this.props.errors.price}</span> }<br/>
+                <input type="text"   placeholder="Price"       name="product.price"       onChange={ event => setFieldValue('product.price', event.target.value)} value={values.product.price}/>
+                { !!errors.product && errors.product.price && <span>{errors.product.price}</span> }<br/>
                 <br/>
                 <button type="submit">Save</button>
             </form>
@@ -51,10 +58,12 @@ class CoffeeForm extends Component {
 }
 
 export default withFormik({
-    mapPropsToValues: props => ({
-        name: props.product,
-        description: '',
-        price: ''
+    mapPropsToValues: () => ({
+        product:{
+            name: "",
+            description: "",
+            price: 0,
+        }
     }),
 
     validateOnChange: false,
@@ -62,19 +71,25 @@ export default withFormik({
     validateOnBlur: false,
 
     validationSchema: Yup.object().shape({
-        name: Yup.string().required('Required field'),
-        description: Yup.string(),
-        price: Yup.number().positive("Can't be negative").required('Required field'),
+        product: Yup.object().shape({
+            name: Yup.string().required('Required field'),
+            description: Yup.string(),
+            price: Yup.number().typeError("Invalid number").positive("Can't be negative").required('Required field'),
+        })
     }),
 
     handleSubmit: (values, { props }) => {
         const { id } = props.match.params;
+        console.log(values.product);
+
         if (id) {
-            console.log("Editing..."+values);
-            //coffeeService.edit(id, values);
+            console.log("Editing...");
+            console.log(values.product);
+            coffeeService.edit(id, values.product);
         } else {
-            console.log("Creating..."+values);
-            //coffeeService.create(values);
+            console.log("Creating...");
+            console.log(values.product);
+            coffeeService.create(values.product);
         }
     }
 })(CoffeeForm);
