@@ -6,33 +6,43 @@ import { coffeeService } from '../../services/coffeeService';
 
 class CoffeeForm extends Component {
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            id: props.match.params.id,
-            product: {
-                name: "",
-                description: "",
-                price: 0,
-            }
+    componentDidMount() {
+        if(this.props.match.params.id) {
+            this.findCoffee(this.props.match.params.id);
         }
     }
 
-    componentDidMount() {
-        if(this.state.id) {
-            this.findCoffee(this.state.id);
+    componentDidUpdate(prevProps) {
+        if (this.props.location !== prevProps.location) {
+            this.onRouteChanged(this.props);
+        }
+    }
+
+    onRouteChanged(props) {
+        console.log("ROUTE CHANGED !");
+        if(props.match.params.id) {
+            console.log("Finding new product...")
+            this.findCoffee(this.props.match.params.id);
+        } else {
+            console.log("Cleaning form...")
+            this.props.setValues({
+                ...this.props.values,
+                product:{
+                    name: "",
+                    description: "",
+                    price: 0,
+                }
+            });
         }
     }
 
     findCoffee = async () => {
-        const response = await coffeeService.findById(this.state.id);
-        console.log(response);
+        const response = await coffeeService.findById(this.props.match.params.id);
+        console.log(response.data);
         this.props.setValues({
             ...this.props.values,
             product: response.data,
         });
-        this.setState({ product: response.data });
     }
 
     render() {
