@@ -78,18 +78,24 @@ export default withFormik({
         })
     }),
 
-    handleSubmit: (values, { props }) => {
+    handleSubmit: async (values, { props }) => {
         const { id } = props.match.params;
-        console.log(values.product);
+        const { product } = values;
+
+        product.id = id;
 
         if (id) {
             console.log("Editing...");
-            console.log(values.product);
-            coffeeService.edit(id, values.product);
+
+            const response = await coffeeService.edit(product.id, product);
+            console.log(response);
+            //TODO show feedback
         } else {
             console.log("Creating...");
-            console.log(values.product);
-            coffeeService.create(values.product);
+
+            const response = await coffeeService.create(product);
+            console.log(response);
+            //TODO show feedback
         }
     }
 })(CoffeeForm);
