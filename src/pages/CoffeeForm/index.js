@@ -6,6 +6,15 @@ import { coffeeService } from '../../services/coffeeService';
 
 class CoffeeForm extends Component {
 
+    constructor(props){
+        super(props);
+
+        this.state = {
+            showPopUp: false,
+            message: "",
+        }
+    }
+
     componentDidMount() {
         if(this.props.match.params.id) {
             this.findCoffee(this.props.match.params.id);
@@ -30,7 +39,7 @@ class CoffeeForm extends Component {
                 product:{
                     name: "",
                     description: "",
-                    price: 0,
+                    price: "",
                 }
             });
         }
@@ -72,7 +81,7 @@ export default withFormik({
         product:{
             name: "",
             description: "",
-            price: 0,
+            price: "",
         }
     }),
 
