@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 
+import styles from "./style";
+
 class Header extends Component {
     render() {
         return (
-            <div>
+            <div style={styles.header}>
                 <Link to="/coffee/list">
-                    <span>List</span>
+                    <div style={styles.menu}>List</div>
                 </Link>
                 <br/>
                 <Link to="/coffee/create">
-                    <span>Create</span>
+                    <div style={styles.menu}>Create</div>
                 </Link>
             </div>
         );
