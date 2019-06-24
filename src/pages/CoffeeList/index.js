@@ -47,7 +47,6 @@ export default class CoffeeList extends Component {
                 opened: false,
             }
         });
-        this.loadCoffees();
     }
 
     deleteCoffee = async (coffee) => {
@@ -57,6 +56,7 @@ export default class CoffeeList extends Component {
         if (response.status === 200) {
             console.log(response.data);
             this.closePopup();
+            this.loadCoffees();
         }
     }
 
@@ -66,7 +66,7 @@ export default class CoffeeList extends Component {
                 {this.state.coffees.map(coffee => (
                     <CoffeeCard coffee={coffee} key={coffee._id} actionConfirmDelete={ this.loadPopup }/>
                 ))}
-                { this.state.popup.opened ? <PopUp popup={ this.state.popup } /> : null }
+                { this.state.popup.opened ? <PopUp popup={ this.state.popup } close={ this.closePopup }/> : null }
             </div>
         );
     }

@@ -4,8 +4,8 @@ import styles from './styles';
 
 class PopUp extends Component {
 
-    constructor(props, context) {
-      super(props, context);
+    constructor(props) {
+      super(props);
 
       this.state = {
         popup: props.popup,
@@ -14,18 +14,23 @@ class PopUp extends Component {
 
     render() {
 
-        const { popup } = this.props;
+        const { popup, close } = this.props;
 
         return (
                 <div style={styles.popup}>
 
                     <div style={styles.content}>
 
-                        <h3>{ popup.title }</h3>
-                        <div>{popup.message}</div>
+                        <div style={styles.header}>
+                            <h3>{popup.title}</h3>
+                        </div>
+
+                        <div style={styles.body}>
+                            <div>{popup.message}</div>
+                        </div>
 
                         <div style={styles.actions}>
-                            <button onClick={popup.close}>
+                            <button onClick={popup.close ? popup.close : close}>
                                 Close
                             </button>
                             <button onClick={() => popup.confirm(popup.object)}>

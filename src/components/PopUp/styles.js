@@ -11,21 +11,26 @@ const styles = ({
 
         margin: 'auto' ,
 
-        backgroundColor: '#e3e4e5',
-        borderRadius: '5px',
+        backgroundColor: 'rgba(8,8,8,0.7)',
     },
     content: {
         position: 'absolute',
 
-        top: '25%',
-        left: '25%',
-        right: '25%',
-        bottom: '25%',
+        top: '40%',
+        left: '30%',
+        right: '30%',
+        bottom: '40%',
 
         margin: 'auto' ,
 
         backgroundColor: 'white',
         borderRadius: '5px',
+        display: 'grid',
+        padding: '15px'
+    },
+    header: {
+    },
+    body: {
     },
     actions: {
         justifyContent: 'space-between',
