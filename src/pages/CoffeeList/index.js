@@ -16,13 +16,17 @@ export default class CoffeeList extends Component {
         }
     }
 
-    tooglePopUp = (coffee) => {
+    loadPopup = (coffee) => {
         this.setState({
             ...this.state,
-            popup: {
+            popup:{
                 opened: !this.state.popup.opened,
-                message: coffee.name,
-            },
+                title: "Confirm exclusion",
+                message: `Confirm exclusion of coffee ${coffee.name} ?`,
+                confirm: (coffee) => this.deleteCoffee(coffee),
+                close: this.loadPopup,
+                object: coffee,
+            }
         })
     }
 
@@ -31,17 +35,38 @@ export default class CoffeeList extends Component {
     }
 
     loadCoffees = async () => {
+        console.log("Loading coffees... ["+this.state.coffees.length+"]");
         const response = await coffeeService.list();
         this.setState({coffees: response.data});
+    }
+
+    closePopup = () => {
+        this.setState({
+            ...this.state,
+            popup: {
+                opened: false,
+            }
+        });
+        this.loadCoffees();
+    }
+
+    deleteCoffee = async (coffee) => {
+        console.log(`Deleting ${coffee.name}...`);
+        const response = await coffeeService.delete(coffee._id);
+
+        if (response.status === 200) {
+            console.log(response.data);
+            this.closePopup();
+        }
     }
 
     render() {
         return (
             <div>
                 {this.state.coffees.map(coffee => (
-                    <CoffeeCard coffee={coffee} key={coffee._id} tooglePopUp={ this.tooglePopUp }/>
+                    <CoffeeCard coffee={coffee} key={coffee._id} actionConfirmDelete={ this.loadPopup }/>
                 ))}
-                { this.state.popup.opened ? <PopUp tooglePopUp={ this.tooglePopUp } opened={ this.state.popup.opened } message={this.state.popup.message}/> : null }
+                { this.state.popup.opened ? <PopUp popup={ this.state.popup } /> : null }
             </div>
         );
     }

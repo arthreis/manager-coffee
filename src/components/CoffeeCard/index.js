@@ -16,7 +16,7 @@ class CoffeeCard extends Component {
   render() {
 
     const { coffee } = this.state;
-    const { tooglePopUp } = this.props;
+    const { actionConfirmDelete } = this.props;
 
     return (
             <div key={coffee._id} style={styles.card}>
@@ -32,7 +32,7 @@ class CoffeeCard extends Component {
                     <Link to={ { pathname: `/coffee/edit/${coffee._id}` } } params={coffee._id}>
                         <button>EDIT</button>
                     </Link>
-                        <button onClick={() => tooglePopUp(this.state.coffee)}>DELETE</button>
+                        <button onClick={() => actionConfirmDelete(this.state.coffee)}>DELETE</button>
                 </div>
             </div>
             );

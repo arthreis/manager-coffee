@@ -107,13 +107,13 @@ export default withFormik({
             console.log("Editing...");
 
             const response = await coffeeService.edit(product.id, product);
-            console.log(response);
+            console.log(response.data);
             //TODO show feedback
         } else {
             console.log("Creating...");
 
             const response = await coffeeService.create(product);
-            console.log(response);
+            console.log(response.data);
             //TODO show feedback
         }
     }

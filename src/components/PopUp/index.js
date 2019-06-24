@@ -7,39 +7,28 @@ class PopUp extends Component {
     constructor(props, context) {
       super(props, context);
 
-      this.handleShow = this.handleShow.bind(this);
-      this.handleClose = this.handleClose.bind(this);
-
       this.state = {
-        show: props.opened,
-        message: props.message
+        popup: props.popup,
       };
-    }
-
-    handleClose() {
-      this.setState({ show: false });
-    }
-
-    handleShow() {
-      this.setState({ show: true });
     }
 
     render() {
 
-        const { message, tooglePopUp } = this.props;
+        const { popup } = this.props;
 
         return (
                 <div style={styles.popup}>
 
                     <div style={styles.content}>
-                        <h3>Confirm deletion ?</h3>
-                        <div>You confirm exclusion of coffee { message } ?</div>
+
+                        <h3>{ popup.title }</h3>
+                        <div>{popup.message}</div>
 
                         <div style={styles.actions}>
-                            <button onClick={tooglePopUp}>
+                            <button onClick={popup.close}>
                                 Close
                             </button>
-                            <button onClick={tooglePopUp}>
+                            <button onClick={() => popup.confirm(popup.object)}>
                                 Ok
                             </button>
                         </div>
