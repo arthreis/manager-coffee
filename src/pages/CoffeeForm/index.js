@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 
 import { coffeeService } from '../../services/coffeeService';
 
+import styles from "./style";
+
 class CoffeeForm extends Component {
 
     constructor(props){
@@ -59,19 +61,21 @@ class CoffeeForm extends Component {
         const {handleSubmit, handleChange, setFieldValue, values, errors} = this.props;
 
         return (
-            <form onSubmit={handleSubmit} >
+            <div style={styles.content}>
+                <form onSubmit={handleSubmit} style={styles.form}>
 
-                <input type="text"     placeholder="Name"        name="product.name"        onChange={handleChange} value={values.product.name}/>
-                { !!errors.product && errors.product.name && <span>{errors.product.name}</span> }<br/>
+                    <input type="text"     placeholder="Name"        name="product.name"        onChange={handleChange} value={values.product.name} style={styles.text} />
+                    { !!errors.product && errors.product.name && <span>{errors.product.name}</span> }<br/><br/>
 
-                <input type="textarea" placeholder="Description" name="product.description" onChange={handleChange} value={values.product.description}/>
-                { !!errors.product && errors.product.description && <span>{errors.product.description}</span> }<br/>
+                    <textarea placeholder="Description" name="product.description" onChange={handleChange} value={values.product.description} style={styles.textarea}/>
+                    { !!errors.product && errors.product.description && <span>{errors.product.description}</span> }<br/><br/>
 
-                <input type="text"   placeholder="Price"       name="product.price"       onChange={ event => setFieldValue('product.price', event.target.value)} value={values.product.price}/>
-                { !!errors.product && errors.product.price && <span>{errors.product.price}</span> }<br/>
-                <br/>
-                <button type="submit">Save</button>
-            </form>
+                    <input type="text"   placeholder="Price"       name="product.price"       onChange={ event => setFieldValue('product.price', event.target.value)} value={values.product.price} style={styles.text} />
+                    { !!errors.product && errors.product.price && <span>{errors.product.price}</span> }<br/>
+                    <br/>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
         );
     }
 }
@@ -111,7 +115,8 @@ export default withFormik({
 
             if(response.status === 200){
                 props.history.push('/coffee/list');
-                //TODO show feedback
+            }else{
+                console.log(response);
             }
         } else {
             console.log("Creating...");
@@ -121,7 +126,8 @@ export default withFormik({
 
             if(response.status === 200){
                 props.history.push('/coffee/list');
-                //TODO show feedback
+            }else{
+                console.log(response);
             }
         }
     }

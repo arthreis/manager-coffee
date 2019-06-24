@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { coffeeService } from '../../services/coffeeService';
 import CoffeeCard from './../../components/CoffeeCard';
 import PopUp from "../../components/PopUp";
+import styles from "./style";
 
 export default class CoffeeList extends Component {
 
@@ -62,7 +63,7 @@ export default class CoffeeList extends Component {
 
     render() {
         return (
-            <div>
+            <div style={styles.content}>
                 {this.state.coffees.map(coffee => (
                     <CoffeeCard coffee={coffee} key={coffee._id} actionConfirmDelete={ this.loadPopup }/>
                 ))}
