@@ -108,13 +108,21 @@ export default withFormik({
 
             const response = await coffeeService.edit(product.id, product);
             console.log(response.data);
-            //TODO show feedback
+
+            if(response.status === 200){
+                props.history.push('/coffee/list');
+                //TODO show feedback
+            }
         } else {
             console.log("Creating...");
 
             const response = await coffeeService.create(product);
             console.log(response.data);
-            //TODO show feedback
+
+            if(response.status === 200){
+                props.history.push('/coffee/list');
+                //TODO show feedback
+            }
         }
     }
 })(CoffeeForm);
