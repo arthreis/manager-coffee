@@ -12,7 +12,7 @@ export const coffeeService = {
             "imagePath" : newCoffee.name.toLowerCase(),
             "price" : newCoffee.price
         };
-        return api.post(`/product/coffee`, coffee);
+        return api.post(`/product/coffees`, coffee);
     },
     edit(id, editedCoffee) {
         let coffee = {
@@ -21,10 +21,10 @@ export const coffeeService = {
             "imagePath" : editedCoffee.name.toLowerCase(),
             "price" : editedCoffee.price
         };
-        return api.put(`/product/coffee?coffeeId=${id}`, coffee);
+        return api.put(`/product/coffees?coffeeId=${id}`, coffee);
     },
     delete(coffeeId) {
-        return api.delete(`/product/coffee?coffeeId=${coffeeId}`);
+        return api.delete(`/product/coffees?coffeeId=${coffeeId}`);
     },
     list() {
         return api.get('/product/coffees');
@@ -32,6 +32,6 @@ export const coffeeService = {
     version
     ,
     findById(id) {
-        return api.get(`/product/coffee/${id}`);      
+        return api.get(`/product/coffees/${id}`);      
     }
 }
